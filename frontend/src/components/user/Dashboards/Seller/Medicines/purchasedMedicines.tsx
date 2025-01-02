@@ -29,7 +29,7 @@ interface Column {
     | "mediciinemadeIN"
     | "paymentStatus";
   label: string;
-  
+
   align?: "right";
   format?: (value: any) => string;
 }
@@ -39,7 +39,7 @@ const columns: readonly Column[] = [
   { id: "medicineName", label: "MedName" },
   { id: "medicineQuantity", label: "Quantity" },
   { id: "medicineCategory", label: "Category" },
-  { id: "priceofonemedicineinTablet", label: "Price"},
+  { id: "priceofonemedicineinTablet", label: "Price" },
   { id: "mediciinemadeIN", label: "Made In" },
   { id: "paymentStatus", label: "Payment Status" },
 ];
@@ -122,8 +122,8 @@ const SearchableTable: React.FC = () => {
   }
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
-        <Typography variant="h4" gutterBottom align="center" color="primary">
-        Sold Medicines  - Cart Details
+      <Typography variant="h4" gutterBottom align="center" color="primary">
+        Sold Medicines - Cart Details
       </Typography>
       <TextField
         label="Search"
@@ -138,11 +138,7 @@ const SearchableTable: React.FC = () => {
           <TableHead>
             <TableRow>
               {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                 
-                >
+                <TableCell key={column.id} align={column.align}>
                   {column.label}
                 </TableCell>
               ))}
@@ -164,10 +160,12 @@ const SearchableTable: React.FC = () => {
                       const value = row[column.id];
                       const isSuccess = value === "success";
                       return (
-                        <TableCell key={column.id} align={column.align}
-                        style={{
-                          color: isSuccess ? 'green' : 'inherit', 
-                        }}
+                        <TableCell
+                          key={column.id}
+                          align={column.align}
+                          style={{
+                            color: isSuccess ? "green" : "inherit",
+                          }}
                         >
                           {column.format ? column.format(value) : value}
                         </TableCell>

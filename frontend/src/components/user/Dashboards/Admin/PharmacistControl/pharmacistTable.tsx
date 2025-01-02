@@ -120,8 +120,8 @@ const SearchableTable: React.FC<Props> = ({ data, loading }) => {
   }
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
-        <Typography variant="h4" gutterBottom align="center" color="primary">
-         Pharmacist Added Medicine  - Cart Details
+      <Typography variant="h4" gutterBottom align="center" color="primary">
+        Pharmacist Added Medicine - Cart Details
       </Typography>
       <TextField
         label="Search"

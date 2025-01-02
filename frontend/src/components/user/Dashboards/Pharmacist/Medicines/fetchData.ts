@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 export const useFetchData = <T>(fetchDataFn: () => Promise<T>) => {
- 
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -9,20 +8,18 @@ export const useFetchData = <T>(fetchDataFn: () => Promise<T>) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetchDataFn(); 
-        setData(response);  
-        setError(null); 
+        const response = await fetchDataFn();
+        setData(response);
+        setError(null);
       } catch (err: any) {
-        setError(err.message); 
+        setError(err.message);
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
-    fetchData(); 
+    fetchData();
+  }, [fetchDataFn]);
 
-  }, [fetchDataFn]); 
-
- 
   return { data, loading, error };
 };

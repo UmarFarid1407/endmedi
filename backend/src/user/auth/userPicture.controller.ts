@@ -63,9 +63,6 @@ export class UploadController {
     }
   }
 
-  // `@UseGuards(JwtAuthGuard)
-  // @UseGuards(RolesGuard)
-  // @Roles('user', 'seller', 'pharmacist', 'admin')`
   @Get('/userimage/:userId')
   async getOneFiles(@Param('userId', ParseIntPipe) userId: number) {
     try {
@@ -80,9 +77,6 @@ export class UploadController {
     }
   }
 
-  // @UseGuards(JwtAuthGuard)
-  // @UseGuards(RolesGuard)
-  // @Roles('user', 'seller', 'pharmacist', 'admin')
   @Get(':id')
   async getFileById(
     @Param('id', ParseIntPipe) id: number,

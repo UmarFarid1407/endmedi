@@ -1,7 +1,6 @@
 import { Navigation, Router } from "@toolpad/core/AppProvider";
 
 import {
- 
   ResponsiveAdminAppBar,
   StockPurchasedFromPharmacy,
   MedicineList,
@@ -16,12 +15,11 @@ import {
   Box,
   Typography,
 } from "../../../../sharedimports/share";
-import   AccountBoxIcon from '@mui/icons-material/AccountBox';
-import  InventoryIcon from '@mui/icons-material/Inventory';
-import  ShoppingCartIcon  from '@mui/icons-material/ShoppingCart';
-import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import InventoryIcon from "@mui/icons-material/Inventory";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
 const NAVIGATION: Navigation = [
- 
   {
     segment: "dashboard",
     title: "Seller",
@@ -83,10 +81,8 @@ export default function SellerNavbar(props: any) {
   const renderContent = () => {
     switch (router.pathname) {
       case "/dashboard":
-      
         return <StockPurchasedFromPharmacy />;
       case "/add-medicine":
-        
         return <CreateMedicine />;
       case "/show-medicine":
         return <MedicineList />;

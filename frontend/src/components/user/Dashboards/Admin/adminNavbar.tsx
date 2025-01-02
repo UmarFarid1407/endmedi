@@ -16,10 +16,10 @@ import {
   Box,
   Typography,
 } from "../../../../sharedimports/share";
-import   AccountBoxIcon from '@mui/icons-material/AccountBox';
-import  PersonIcon from '@mui/icons-material/Person';
-import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
-import  AddHomeWorkIcon  from '@mui/icons-material/AddHomeWork';
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import PersonIcon from "@mui/icons-material/Person";
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import AddHomeWorkIcon from "@mui/icons-material/AddHomeWork";
 
 const NAVIGATION: Navigation = [
   {
@@ -97,9 +97,9 @@ export default function AdminNavbar(props: any) {
         return <MedicinesTable />;
       case "/pharmacists":
         return <PharmacistData />;
-        case "/user":
-          return <UserData/>
-        
+      case "/user":
+        return <UserData />;
+
       case "/profile":
         return <Profile />;
 

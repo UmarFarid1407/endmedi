@@ -18,8 +18,7 @@ import {
 
 const theme = createTheme();
 
-const Profile: React.FC= () => {
-
+const Profile: React.FC = () => {
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [state, setState] = useState("");
   const [userId, setUserId] = useState<number>();
@@ -84,8 +83,8 @@ const Profile: React.FC= () => {
 
   return (
     <Box>
-      {userRole==='user'  &&  <ResponsiveAppBar />}
-      
+      {userRole === "user" && <ResponsiveAppBar />}
+
       <Box>
         <ThemeProvider theme={theme}>
           <CssBaseline>
@@ -144,5 +143,5 @@ const Profile: React.FC= () => {
       </Box>
     </Box>
   );
-}
-export default Profile ;
+};
+export default Profile;

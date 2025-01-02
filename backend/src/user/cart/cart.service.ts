@@ -40,13 +40,6 @@ export class CartService {
         },
       });
 
-      // const pharmacycart = await this.prisma.cart.findUnique({
-      //   where: { id: userID },
-      //   select: {
-      //     medicineQuantity: true,
-      //   },
-      // });
-
       if (user?.role === 'user') {
         console.log('The user has the role "user". Performing the action...');
         for (const item of cartItems) {
@@ -69,11 +62,6 @@ export class CartService {
               medicineQuantity: cart[0].medicineQuantity - amount,
             },
           });
-          // if (cart.medicineQuantity < amount) {
-          //   throw new InternalServerErrorException(
-          //     `Not enough stock for medicine ID: ${medicineID}`,
-          //   );
-          // }
 
           const pendingstatus = 'pending';
           console.log('from backend service cartuser ', item.userId);
@@ -150,46 +138,39 @@ export class CartService {
     }
   }
 
-  // async updateQuantity(cartID: number, amount: number): Promise<void> {
-  //   try {
-  //     // Find the medicine by its ID
-  //     const carts = await this.prisma.cart.findMany({
-  //       where: { id: cartID },
-  //       select: {
-  //         medicineQuantity: true,
-  //       },
-  //     });
-  //     await this.prisma.cart.updateMany({
-  //       where: { id: cartID },
-  //       data: {
-  //         medicineQuantity: carts?.medicineQuantity - amount,
-  //       },
-  //     });
-
-  //     if (!carts) {
-  //       throw new NotFoundException('Medicine not found');
-  //     }
-  //     console.log('from update');
-  //   } catch (error) {
-  //     throw new InternalServerErrorException(
-  //       'Error updating medicine quantity: ' + error.message,
-  //     );
-  //   }
-  // }
-
   async getCartByUserId(userId: number) {
     try {
       const cartItems = await this.prisma.cart.findMany({
         where: { userId },
       });
 
-      // if (!cartItems || cartItems.length === 0) {
-      //   throw new InternalServerErrorException(
-      //     'No cart items found for this user',
-      //   );
-      // }
-
       return cartItems;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async getCartByUserIdPagination(userId: number, page: number, limit: number) {
+    try {
+      const offset = (page - 1) * limit;
+
+      const [cartItems, totalItems] = await Promise.all([
+        this.prisma.cart.findMany({
+          where: { userId },
+          skip: offset,
+          take: limit,
+        }),
+        this.prisma.cart.count({
+          where: { userId },
+        }),
+      ]);
+
+      return {
+        cartItems,
+        totalItems,
+        currentPage: page,
+        totalPages: Math.ceil(totalItems / limit),
+      };
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -200,12 +181,6 @@ export class CartService {
       const cartItems = await this.prisma.userCart.findMany({
         where: { userId },
       });
-
-      // if (!cartItems || cartItems.length === 0) {
-      //   throw new InternalServerErrorException(
-      //     'No cart items found for this user',
-      //   );
-      // }
 
       return cartItems;
     } catch (error) {
@@ -218,11 +193,6 @@ export class CartService {
         where: { userId },
       });
 
-      // if (!cartItems || cartItems.length === 0) {
-      //   throw new InternalServerErrorException(
-      //     'No cart items found for this user',
-      //   );
-      // }
       console.log('from backend ', cartItems);
       return cartItems;
     } catch (error) {

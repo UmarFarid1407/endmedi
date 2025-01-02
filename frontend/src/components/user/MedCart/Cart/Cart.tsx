@@ -36,7 +36,6 @@ const Cart: React.FC<Props> = ({ cartItems, addToCart, removeFromCart }) => {
       return console.log("user not found");
     }
   }, [userID]);
-  console.log("user id for ph", userID);
 
   const calculateTotal = (items: CartItemType[]) =>
     items.reduce(
@@ -86,7 +85,6 @@ const Cart: React.FC<Props> = ({ cartItems, addToCart, removeFromCart }) => {
       {cartItems.map((item) => (
         <CartItem
           key={item.medicineID}
-          // key={`${item.medicineID}-${item.medicineQuantity}`}
           item={item}
           addToCart={addToCart}
           removeFromCart={removeFromCart}

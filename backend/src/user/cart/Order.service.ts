@@ -6,12 +6,9 @@ export class OrderService {
   private stripe: Stripe;
 
   constructor() {
-    this.stripe = new Stripe(
-      'sk_test_51QSEck03bWGiW3VHMQBAJH2MHruKPIyqRZ7Lj11viHtg0vquqGxwZ6lZxs68f6ulv4UeHe8o6hjGN6j386i2HcE5000hQGrni8',
-      {
-        apiVersion: '2024-11-20.acacia',
-      },
-    );
+    this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
+      apiVersion: process.env.STRIPE_API_VERSION as Stripe.LatestApiVersion,
+    });
   }
 
   async createCheckoutSession(

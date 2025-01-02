@@ -19,15 +19,19 @@ import {
   Avatar,
 } from "../../../sharedimports/share";
 const pages = ["Products", "Purchasings"];
-const settings = ["Profile", "Dashboard", "Logout","Purchasings"];
+const settings = ["Profile", "Dashboard", "Logout", "Purchasings"];
 
 function ResponsiveAppBar() {
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
-  const { navigateToDashboard, navigateToProducts, navigateToProfile, navigateToPastPurchasing } =
-    useNavigation();
+  const {
+    navigateToDashboard,
+    navigateToProducts,
+    navigateToProfile,
+    navigateToPastPurchasing,
+  } = useNavigation();
 
   const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -65,8 +69,8 @@ function ResponsiveAppBar() {
         case "Dashboard":
           navigateToDashboard();
           break;
-          case "Purchasings":
-            console.log('fromuser')
+        case "Purchasings":
+          console.log("fromuser");
           navigateToPastPurchasing();
           break;
         case "Logout":

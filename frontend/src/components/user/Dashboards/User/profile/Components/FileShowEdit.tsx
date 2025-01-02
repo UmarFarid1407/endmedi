@@ -1,36 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Avatar } from '@mui/material';
-import { decodeToken } from '../../../../../../sharedimports/auth';
-
-interface FileMetadata {
-  id: number;
-  filename: string;
-  createdAt: string;
-}
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 interface FileUploadEditProps {
   imageId: number;
   onFileUpdated: () => void;
 }
 
-const FileUploadEdit: React.FC<FileUploadEditProps> = ({ imageId, onFileUpdated }) => {
-  const [imagePreviews, setImagePreviews] = useState<{ [key: number]: string }>({});
+const FileUploadEdit: React.FC<FileUploadEditProps> = ({
+  imageId,
+  onFileUpdated,
+}) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
 
   const fetchImagePreview = async (id: number) => {
     try {
       const response = await axios.get(`http://localhost:5000/upload/${id}`, {
-        responseType: 'blob',
+        responseType: "blob",
       });
-      const imageURL = URL.createObjectURL(response.data);
-      setImagePreviews((prev) => ({
-        ...prev,
-        [id]: imageURL,
-      }));
+      URL.createObjectURL(response.data);
     } catch (error) {
-      console.error('Error fetching image:', error);
+      console.error("Error fetching image:", error);
     }
   };
 
@@ -46,24 +36,28 @@ const FileUploadEdit: React.FC<FileUploadEditProps> = ({ imageId, onFileUpdated 
 
   const handleEditFile = async () => {
     if (!selectedFile) {
-      setMessage('Please select a new file to update.');
+      setMessage("Please select a new file to update.");
       return;
     }
 
     const formData = new FormData();
-    formData.append('file', selectedFile);
+    formData.append("file", selectedFile);
 
     try {
-      const response = await axios.put(`http://localhost:5000/upload/edit/${imageId}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const response = await axios.put(
+        `http://localhost:5000/upload/edit/${imageId}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       setMessage(response.data.message);
-      onFileUpdated(); // Trigger parent callback to refresh the file list
+      onFileUpdated();
     } catch (error) {
-      console.error('Error updating file:', error);
-      setMessage('Failed to update the file.');
+      console.error("Error updating file:", error);
+      setMessage("Failed to update the file.");
     }
   };
 

@@ -143,15 +143,13 @@ const App = () => {
             Cart
           </Button>
         </Box>
-        <Box paddingTop={1} 
-          
-            >
+        <Box paddingTop={1}>
           <Box
-           display="grid"
-           gridTemplateColumns="repeat(4, 1fr)" // Ensures 3 items per row
-           gap={3}
-           width="100%" // Ensures it takes full width
-           height="100%"
+            display="grid"
+            gridTemplateColumns="repeat(4, 1fr)" // Ensures 3 items per row
+            gap={3}
+            width="100%" // Ensures it takes full width
+            height="100%"
           >
             {currentMedicines.length > 0 ? (
               currentMedicines.map((item, index) => (

@@ -1,6 +1,5 @@
-
-import React from 'react';
-import { Pagination, Box } from '@mui/material';
+import React from "react";
+import { Pagination, Box } from "@mui/material";
 
 interface CustomPaginationProps {
   totalItems: number;
@@ -17,7 +16,7 @@ const CustomPagination: React.FC<CustomPaginationProps> = ({
 }) => {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-  if (totalPages <= 1) return null; 
+  if (totalPages <= 1) return null;
 
   return (
     <Box display="flex" justifyContent="center" paddingY={2}>

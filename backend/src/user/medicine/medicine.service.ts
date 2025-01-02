@@ -157,10 +157,6 @@ export class MedicineService {
       }
       console.log('from update');
 
-      // if (medicine.medicineQuantity < amount) {
-      //   throw new InternalServerErrorException('Not enough stock available');
-      // }
-
       await this.prisma.medicine.update({
         where: { medicineID },
         data: {

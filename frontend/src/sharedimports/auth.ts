@@ -1,4 +1,4 @@
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode } from "jwt-decode";
 
 interface DecodedToken {
   id: number;
@@ -6,26 +6,25 @@ interface DecodedToken {
   role: string;
 }
 
-export const decodeToken = (decode: boolean = true): DecodedToken | string | null => {
+export const decodeToken = (
+  decode: boolean = true
+): DecodedToken | string | null => {
   try {
-    
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem("authToken");
 
     if (!token) {
-      console.error('No token found in localStorage');
+      console.error("No token found in localStorage");
       return null;
     }
 
-    
     if (decode) {
       const decoded = jwtDecode<DecodedToken>(token);
       return decoded;
     } else {
-      
       return token;
     }
   } catch (error) {
-    console.error('Error decoding the token:', error);
-    throw new Error('Invalid token');
+    console.error("Error decoding the token:", error);
+    throw new Error("Invalid token");
   }
 };

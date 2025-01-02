@@ -17,7 +17,6 @@ import {
 import { MedicineFormCreateData } from "../../types/types";
 
 const CreateMedicine: React.FC = () => {
-
   const [formData, setFormData] = useState<MedicineFormCreateData>({
     medicineName: "",
     medicineQuantity: 0,

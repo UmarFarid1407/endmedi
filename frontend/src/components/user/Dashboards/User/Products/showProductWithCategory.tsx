@@ -1,6 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Button, Typography, Card, CardContent, CardMedia, CardActionArea } from '@mui/material';
-import { getAllPharmacyCartsWithCategory } from '../../../Api/api';
+import React, { useState, useEffect } from "react";
+import {
+  Box,
+  Button,
+  Typography,
+  Card,
+  CardContent,
+  CardMedia,
+  CardActionArea,
+} from "@mui/material";
+import { getAllPharmacyCartsWithCategory } from "../../../Api/api";
 
 interface Product {
   id: number;
@@ -15,9 +23,11 @@ interface ProductWithCategoryProps {
 }
 
 const defaultImage =
-  'https://img.freepik.com/free-photo/woman-s-hand-pours-medicine-pills-out-bottle_1150-14200.jpg?semt=ais_hybrid';
+  "https://img.freepik.com/free-photo/woman-s-hand-pours-medicine-pills-out-bottle_1150-14200.jpg?semt=ais_hybrid";
 
-const ProductWithCategory: React.FC<ProductWithCategoryProps> = ({ category }) => {
+const ProductWithCategory: React.FC<ProductWithCategoryProps> = ({
+  category,
+}) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const productsPerPageHorizontally = 4;
@@ -28,21 +38,27 @@ const ProductWithCategory: React.FC<ProductWithCategoryProps> = ({ category }) =
         const data: Product[] = await getAllPharmacyCartsWithCategory(category);
         setProducts(data);
       } catch (error) {
-        console.error(`Error fetching products for category ${category}:`, error);
+        console.error(
+          `Error fetching products for category ${category}:`,
+          error
+        );
       }
     };
 
     fetchProducts();
   }, [category]);
 
-  
   const indexOfLastProduct = currentPage * productsPerPageHorizontally;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPageHorizontally;
-  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
-
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
 
   const handleNextPage = () => {
-    if (currentPage < Math.ceil(products.length / productsPerPageHorizontally)) {
+    if (
+      currentPage < Math.ceil(products.length / productsPerPageHorizontally)
+    ) {
       setCurrentPage((prev) => prev + 1);
     }
   };
@@ -64,8 +80,8 @@ const ProductWithCategory: React.FC<ProductWithCategoryProps> = ({ category }) =
         justifyContent="space-evenly"
         gap={2}
         sx={{
-          '&::-webkit-scrollbar': { display: 'none' },
-          scrollbarWidth: 'none',
+          "&::-webkit-scrollbar": { display: "none" },
+          scrollbarWidth: "none",
         }}
       >
         {currentProducts.map((product) => (
@@ -74,7 +90,7 @@ const ProductWithCategory: React.FC<ProductWithCategoryProps> = ({ category }) =
               <CardMedia
                 component="img"
                 height="140"
-                image={defaultImage} 
+                image={defaultImage}
                 alt={product.medicineName}
               />
               <CardContent>
@@ -87,7 +103,6 @@ const ProductWithCategory: React.FC<ProductWithCategoryProps> = ({ category }) =
                 <Typography variant="body2" color="text.secondary">
                   Price: ${product.priceofonemedicineinTablet || "N/A"}
                 </Typography>
-                
               </CardContent>
             </CardActionArea>
           </Card>
@@ -104,7 +119,10 @@ const ProductWithCategory: React.FC<ProductWithCategoryProps> = ({ category }) =
         <Button
           variant="contained"
           onClick={handleNextPage}
-          disabled={currentPage === Math.ceil(products.length / productsPerPageHorizontally)}
+          disabled={
+            currentPage ===
+            Math.ceil(products.length / productsPerPageHorizontally)
+          }
         >
           Next
         </Button>

@@ -1,6 +1,6 @@
-import React from 'react';
-import { Dialog, DialogContent, DialogActions, Button } from '@mui/material';
-import FileUploadEdit from './FileShowEdit';
+import React from "react";
+import { Dialog, DialogContent, DialogActions, Button } from "@mui/material";
+import FileUploadEdit from "./FileShowEdit";
 
 interface FileUploadEditDialogProps {
   imageId: number;

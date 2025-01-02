@@ -18,17 +18,17 @@ import {
   Visibility,
 } from "../../../../../../sharedimports/share";
 
-interface SettingsCardProps{
-  firstName: string; 
+interface SettingsCardProps {
+  firstName: string;
   lastName: string;
   middleName: string;
   gender: string;
-  phoneNumber: string ;
-  email: string ;
-  password: string ;
+  phoneNumber: string;
+  email: string;
+  password: string;
 }
 
-  const SettingsCard: React.FC< SettingsCardProps>= (props: any) => {
+const SettingsCard: React.FC<SettingsCardProps> = (props: any) => {
   const [userID, setUserId] = useState<number>(0);
   const { navigateToLogin } = useNavigation();
   useEffect(() => {
@@ -37,15 +37,14 @@ interface SettingsCardProps{
 
     if (getdecodedToken) {
       if (typeof getdecodedToken === "object" && getdecodedToken.id) {
-          setUserId(getdecodedToken.id); 
-          
+        setUserId(getdecodedToken.id);
       } else {
-          console.error("Invalid token format or ID is missing.");
+        console.error("Invalid token format or ID is missing.");
       }
-  } else {
+    } else {
       console.log("User not found: Token is null or undefined.");
-  }
-}, [userID]);
+    }
+  }, [userID]);
   const genderSelect = [
     {
       value: "male",
@@ -57,7 +56,6 @@ interface SettingsCardProps{
     },
   ];
 
-  
   const [user, setUser] = useState({
     firstName: props.firstName,
     lastName: props.lastName,
@@ -104,8 +102,6 @@ interface SettingsCardProps{
   const handlePassword = () => {
     setUser((prev) => ({ ...prev, showPassword: !prev.showPassword }));
   };
-
-  
 
   return (
     <Card variant="outlined" sx={{ height: "100%", width: "100%" }}>
@@ -255,6 +251,6 @@ interface SettingsCardProps{
       </form>
     </Card>
   );
-}
+};
 
 export default SettingsCard;

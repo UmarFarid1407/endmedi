@@ -1,4 +1,4 @@
-export {}; 
+export {};
 
 export interface Medicine {
   medicineID: number;
@@ -9,7 +9,7 @@ export interface Medicine {
   medicinequantityinonetablet?: number;
   mediciinemadeIN: string;
   medicineExpiryDate: string;
-  medicineManufacturingDate: string; 
+  medicineManufacturingDate: string;
 }
 
 export interface CartItemType {
@@ -20,31 +20,31 @@ export interface CartItemType {
   priceofonemedicineinTablet: number;
   medicinequantityinonetablet?: number;
   mediciinemadeIN: string;
-  medicineExpiryDate: string; 
+  medicineExpiryDate: string;
   medicineManufacturingDate: string;
-  amount: number;        
+  amount: number;
 }
 export interface CartItem {
-  amount: number;                           
-  medicineID: number;                     
-  medicineName: string;                    
-  medicineQuantity: number;                  
-  medicineCategory: string;                 
-  priceofonemedicineinTablet: number;       
-  medicinequantityinonetablet?: number;      
-  mediciinemadeIN: string;                   
-  medicineExpiryDate: string;             
-  medicineManufacturingDate: string;        
-  sellerID: number;                        
-  mgs?: number;     
-  paymentStatus: string;                     
+  amount: number;
+  medicineID: number;
+  medicineName: string;
+  medicineQuantity: number;
+  medicineCategory: string;
+  priceofonemedicineinTablet: number;
+  medicinequantityinonetablet?: number;
+  mediciinemadeIN: string;
+  medicineExpiryDate: string;
+  medicineManufacturingDate: string;
+  sellerID: number;
+  mgs?: number;
+  paymentStatus: string;
 }
 
 export interface CartItem {
   id: number;
-  cartItems: CartItem[];                     
-  totalAmount: number;                       
-  userID: number;                            
+  cartItems: CartItem[];
+  totalAmount: number;
+  userID: number;
 }
 
 export interface UserProfile {
@@ -52,18 +52,16 @@ export interface UserProfile {
   // dt1: number;
   // dt2: number;
   // dt3: number;
-  firstName: string; 
+  firstName: string;
   lastName: string;
   middleName: string;
   gender: string;
-  phoneNumber: string ;
-  email: string ;
-  password: string ;
-  role:string;
-  id: number,
+  phoneNumber: string;
+  email: string;
+  password: string;
+  role: string;
+  id: number;
 }
-
-
 
 export interface SignInData {
   email: string;
@@ -76,18 +74,16 @@ export interface SignUpData {
   email: string;
   password: string;
   role: string;
-
 }
 
 export interface MedicineData {
- 
   medicineName: string;
   medicineQuantity: number;
   medicineCategory: string;
   priceofonemedicineinTablet: number;
   medicinequantityinonetablet?: number;
   mediciinemadeIN: string;
-  medicineExpiryDate: string; 
+  medicineExpiryDate: string;
   sellerID: number;
   medicineManufacturingDate: string;
 }
@@ -98,10 +94,10 @@ export interface MedicineFormData {
   priceofonemedicineinTablet: number;
   medicinequantityinonetablet?: number;
   mediciinemadeIN: string;
-  medicineExpiryDate: string; 
+  medicineExpiryDate: string;
   sellerID: number;
   medicineManufacturingDate: string;
-  medicineID: number; 
+  medicineID: number;
 }
 export interface MedicineFormCreateData {
   medicineName: string;

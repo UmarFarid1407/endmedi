@@ -1,4 +1,3 @@
-// src/auth/services/auth.service.ts
 import {
   HttpException,
   HttpStatus,
@@ -18,7 +17,6 @@ export class AuthService {
   ) {}
 
   async login(email: string, password: string, role: string) {
-    // Find the user by email
     try {
       const user = await this.prisma.user.findUnique({
         where: { email },
@@ -28,7 +26,6 @@ export class AuthService {
         throw new NotFoundException('User not found');
       }
 
-      // Verify password
       const passwordMatch = await bcrypt.compare(password, user.password);
 
       if (!passwordMatch) {

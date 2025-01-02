@@ -95,7 +95,6 @@ const MedicineList: React.FC = () => {
     setLoading(true);
     try {
       await deleteMedicine(medicineID);
-      
 
       setMedicines((prevMedicines) => {
         const updatedMedicines = prevMedicines.filter(

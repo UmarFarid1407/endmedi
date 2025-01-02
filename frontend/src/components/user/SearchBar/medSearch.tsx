@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { TextField, Box } from '@mui/material';
+import React, { useState } from "react";
+import { TextField, Box } from "@mui/material";
 
 interface SearchBarProps {
   onSearch: (searchTerm: string) => void;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -15,8 +15,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   };
 
   return (
-      
-   <Box sx={{ mb: 3,  width: '100%'  }} >
+    <Box sx={{ mb: 3, width: "100%" }}>
       <TextField
         label="Search Medicines"
         variant="outlined"
@@ -26,10 +25,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
         placeholder="Search by name, category, etc."
       />
     </Box>
-
-    
-   
- 
   );
 };
 

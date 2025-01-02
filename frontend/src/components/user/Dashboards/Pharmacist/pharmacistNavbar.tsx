@@ -13,15 +13,13 @@ import {
   extendTheme,
   Box,
   Typography,
-
 } from "../../../../sharedimports/share";
-import   AccountBoxIcon from '@mui/icons-material/AccountBox';
-import  InventoryIcon from '@mui/icons-material/Inventory';
-import  ShoppingCartIcon  from '@mui/icons-material/ShoppingCart';
-import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import InventoryIcon from "@mui/icons-material/Inventory";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 const NAVIGATION: Navigation = [
-  
-  
   {
     segment: "dashboard",
     title: " Pharmacy",
@@ -75,7 +73,7 @@ function useDemoRouter(initialPath: string): Router {
 
 export default function PharmacistNavbar(props: any) {
   const { window } = props;
- 
+
   const router = useDemoRouter("/dashboard");
 
   const demoWindow = window ? window() : undefined;
@@ -86,6 +84,7 @@ export default function PharmacistNavbar(props: any) {
         return <SearchableTable />;
       case "/stock-pharmacy":
         return <StockPharmacy />;
+      // return <Pagination/>;
       case "/purchase-medicine":
         return <AllMedicines />;
       case "/profile":

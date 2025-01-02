@@ -1,8 +1,5 @@
-import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import {
   Button,
-  Badge,
-  Avatar,
   Typography,
   Box,
   Card,
@@ -31,27 +28,7 @@ export default function ProfileCard(props: any) {
         alignItems="center"
       >
         <Box sx={{ p: "1.5rem 0rem", textAlign: "center" }}>
-          {/* PROFILE PHOTO */}
-          
-          {/* <Badge
-            overlap="circular"
-            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-            badgeContent={
-              <PhotoCameraIcon
-                sx={{
-                  border: "5px solid white",
-                  backgroundColor: "#ff558f",
-                  borderRadius: "50%",
-                  padding: ".2rem",
-                  width: 35,
-                  height: 35,
-                }}
-              ></PhotoCameraIcon>
-            }
-          > */}
-           <FileUploadEdit/>
-            
-          {/* </Badge> */}
+          <FileUploadEdit />
 
           <Typography variant="h6">{props.name}</Typography>
           <Typography color="text.secondary">{props.sub}</Typography>

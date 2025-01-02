@@ -34,9 +34,9 @@ interface Column {
 const columns: readonly Column[] = [
   { id: "medicineID", label: "ID" },
   { id: "medicineName", label: "MedName" },
-  { id: "medicineQuantity", label: "Quantity"},
+  { id: "medicineQuantity", label: "Quantity" },
   { id: "medicineCategory", label: "Category" },
-  { id: "priceofonemedicineinTablet", label: "Price"},
+  { id: "priceofonemedicineinTablet", label: "Price" },
   { id: "mediciinemadeIN", label: "Made In" },
   { id: "paymentStatus", label: "Payment Status" },
 ];
@@ -119,7 +119,7 @@ const SearchableTable: React.FC = () => {
   }
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
-       <Typography variant="h4" gutterBottom align="center" color="primary">
+      <Typography variant="h4" gutterBottom align="center" color="primary">
         Sold Medicines - Cart Details
       </Typography>
       <TextField
@@ -135,11 +135,7 @@ const SearchableTable: React.FC = () => {
           <TableHead>
             <TableRow>
               {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                 
-                >
+                <TableCell key={column.id} align={column.align}>
                   {column.label}
                 </TableCell>
               ))}

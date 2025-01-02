@@ -9,6 +9,8 @@ import {
   HttpException,
   UseGuards,
   HttpStatus,
+  Query,
+  DefaultValuePipe,
 } from '@nestjs/common';
 import { CartService } from './cart.service';
 import { OrderService } from './Order.service';
@@ -57,6 +59,22 @@ export class CartController {
   async getPharmacistCart(@Param('userId', ParseIntPipe) userId: number) {
     try {
       return this.cartService.getCartByUserId(userId);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @UseGuards(RolesGuard)
+  @Roles('pharmacist')
+  @Get('/cartwithpharmacistidpagination/:userId')
+  async getPharmacistCartWithPagination(
+    @Param('userId', ParseIntPipe) userId: number,
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
+  ) {
+    try {
+      return this.cartService.getCartByUserIdPagination(userId, page, limit);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
