@@ -76,10 +76,11 @@ export class CartService {
           // }
 
           const pendingstatus = 'pending';
+          console.log('from backend service cartuser ', item.userId);
           await this.prisma.userCart.create({
             data: {
               amount: item.amount,
-              userId: item.userId,
+              userId: userID,
               totalAmount: totalAmount,
               medicineID: item.medicineID,
               medicineName: item.medicineName,
@@ -206,6 +207,23 @@ export class CartService {
       //   );
       // }
 
+      return cartItems;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+  async getCartByUserIdForUser(userId: number) {
+    try {
+      const cartItems = await this.prisma.userCart.findMany({
+        where: { userId },
+      });
+
+      // if (!cartItems || cartItems.length === 0) {
+      //   throw new InternalServerErrorException(
+      //     'No cart items found for this user',
+      //   );
+      // }
+      console.log('from backend ', cartItems);
       return cartItems;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);

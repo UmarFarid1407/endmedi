@@ -3,7 +3,7 @@ import {
     React,
     CircularProgress,
     Box,
-    getCartByPharmacistIDForUserCart,
+    getCartByUserIDForUserCart,
     useEffect,
     Table,
     decodeToken,
@@ -63,11 +63,12 @@ import {
       }
     }, [userId]);
     useEffect(() => {
-      if (userId) {
+      if (userId!==undefined) {
         const fetchUsers = async () => {
           setLoading(true);
           try {
-            const data = await getCartByPharmacistIDForUserCart(userId);
+            const data = await getCartByUserIDForUserCart(userId);
+            console.log(data);
             setRows(data);
             setFilteredRows(data);
           } catch (error) {

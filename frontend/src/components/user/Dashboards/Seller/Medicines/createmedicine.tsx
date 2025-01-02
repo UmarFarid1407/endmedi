@@ -17,6 +17,7 @@ import {
 import { MedicineFormCreateData } from "../../types/types";
 
 const CreateMedicine: React.FC = () => {
+
   const [formData, setFormData] = useState<MedicineFormCreateData>({
     medicineName: "",
     medicineQuantity: 0,
@@ -28,12 +29,11 @@ const CreateMedicine: React.FC = () => {
     sellerID: 0,
     medicineManufacturingDate: "",
   });
-
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const [userId, setUserId] = useState<number>();
+  const [userId, setUserId] = useState<number>(0);
   const [focusedField, setFocusedField] = React.useState("");
   useEffect(() => {
     const shouldDecode = true;
@@ -86,7 +86,7 @@ const CreateMedicine: React.FC = () => {
         medicinequantityinonetablet: 0,
         mediciinemadeIN: "",
         medicineExpiryDate: "",
-        sellerID: 0,
+        sellerID: userId,
         medicineManufacturingDate: "",
       });
     } catch (err: any) {

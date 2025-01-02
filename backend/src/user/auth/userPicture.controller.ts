@@ -11,14 +11,10 @@ import {
   ParseIntPipe,
   Put,
   Body,
-  UseGuards,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadService } from './userpicture.service';
 import { Response } from 'express';
-import { JwtAuthGuard } from '../guards/jwt-auth.guards';
-import { RolesGuard } from '../guards/roles-guard';
-import { Roles } from '../decorators/role.decorators';
 
 @Controller('upload')
 export class UploadController {
@@ -30,31 +26,41 @@ export class UploadController {
     @UploadedFile() file: Express.Multer.File,
     @Body('userId', ParseIntPipe) userId: number,
   ) {
-    if (!file) {
-      throw new HttpException('No file uploaded', HttpStatus.BAD_REQUEST);
-    }
-    if (!userId) {
-      throw new HttpException(
-        'User not authenticated',
-        HttpStatus.UNAUTHORIZED,
-      );
-    }
+    try {
+      if (!file) {
+        throw new HttpException('No file uploaded', HttpStatus.BAD_REQUEST);
+      }
+      if (!userId) {
+        throw new HttpException(
+          'User not authenticated',
+          HttpStatus.UNAUTHORIZED,
+        );
+      }
 
-    const fileData = file.buffer;
-    const filename = file.originalname; 
-    await this.uploadService.saveFile(filename, fileData, userId);
+      const fileData = file.buffer;
+      const filename = file.originalname;
+      await this.uploadService.saveFile(filename, fileData, userId);
 
-    return { message: 'File uploaded and saved to the database successfully!' };
+      return {
+        message: 'File uploaded and saved to the database successfully!',
+      };
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   @Get()
   async getFiles() {
-    const files = await this.uploadService.getFiles();
-    
-    return files.map((file) => ({
-      ...file,
-      fileData: undefined,
-    }));
+    try {
+      const files = await this.uploadService.getFiles();
+
+      return files.map((file) => ({
+        ...file,
+        fileData: undefined,
+      }));
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   // `@UseGuards(JwtAuthGuard)
@@ -62,12 +68,16 @@ export class UploadController {
   // @Roles('user', 'seller', 'pharmacist', 'admin')`
   @Get('/userimage/:userId')
   async getOneFiles(@Param('userId', ParseIntPipe) userId: number) {
-    const files = await this.uploadService.getFilesByUserId(userId);
-  
-    return {
-      ...files,
-      fileData: undefined,
-    };
+    try {
+      const files = await this.uploadService.getFilesByUserId(userId);
+
+      return {
+        ...files,
+        fileData: undefined,
+      };
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   // @UseGuards(JwtAuthGuard)
@@ -78,18 +88,22 @@ export class UploadController {
     @Param('id', ParseIntPipe) id: number,
     @Res() res: Response,
   ) {
-    const file = await this.uploadService.getFileById(id);
+    try {
+      const file = await this.uploadService.getFileById(id);
 
-    if (!file) {
-      return res.status(404).json({ message: 'File not found' });
+      if (!file) {
+        return res.status(404).json({ message: 'File not found' });
+      }
+
+      res.set({
+        'Content-Type': 'application/octet-stream',
+        'Content-Disposition': `attachment; filename="${file.filename}"`,
+      });
+
+      return res.send(file.fileData);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
-    res.set({
-      'Content-Type': 'application/octet-stream',
-      'Content-Disposition': `attachment; filename="${file.filename}"`,
-    });
-
-    return res.send(file.fileData);
   }
 
   @Get('/image/:userId')
@@ -97,18 +111,22 @@ export class UploadController {
     @Param('userId', ParseIntPipe) userId: number,
     @Res() res: Response,
   ) {
-    const file = await this.uploadService.getFileByUserId(userId);
+    try {
+      const file = await this.uploadService.getFileByUserId(userId);
 
-    if (!file) {
-      return res.status(404).json({ message: 'File not found' });
+      if (!file) {
+        return res.status(404).json({ message: 'File not found' });
+      }
+
+      res.set({
+        'Content-Type': 'application/octet-stream',
+        'Content-Disposition': `attachment; filename="${file.filename}"`,
+      });
+
+      return res.send(file.fileData);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
-    res.set({
-      'Content-Type': 'application/octet-stream',
-      'Content-Disposition': `attachment; filename="${file.filename}"`,
-    });
-
-    return res.send(file.fileData);
   }
 
   @Put('/edit/:id')
@@ -117,23 +135,27 @@ export class UploadController {
     @Param('id', ParseIntPipe) id: number,
     @UploadedFile() file: Express.Multer.File,
   ) {
-    if (!file) {
-      throw new HttpException('No file uploaded', HttpStatus.BAD_REQUEST);
+    try {
+      if (!file) {
+        throw new HttpException('No file uploaded', HttpStatus.BAD_REQUEST);
+      }
+
+      const fileData = file.buffer;
+      const filename = file.originalname;
+
+      const updatedFile = await this.uploadService.updateFile(
+        id,
+        filename,
+        fileData,
+      );
+
+      if (!updatedFile) {
+        throw new HttpException('File not found', HttpStatus.NOT_FOUND);
+      }
+
+      return { message: 'File updated successfully!' };
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    console.log('from edit ');
-    const fileData = file.buffer;
-    const filename = file.originalname; 
-
-    const updatedFile = await this.uploadService.updateFile(
-      id,
-      filename,
-      fileData,
-    );
-
-    if (!updatedFile) {
-      throw new HttpException('File not found', HttpStatus.NOT_FOUND);
-    }
-
-    return { message: 'File updated successfully!' };
   }
 }

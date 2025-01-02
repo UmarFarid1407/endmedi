@@ -76,6 +76,18 @@ export class CartController {
 
   @UseGuards(JwtAuthGuard)
   @UseGuards(RolesGuard)
+  @Roles('pharmacist', 'user')
+  @Get('/cartwithuseridforuser/:userId')
+  async getUserCartforuser(@Param('userId', ParseIntPipe) userId: number) {
+    try {
+      return this.cartService.getCartByUserIdForUser(userId);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @UseGuards(RolesGuard)
   @Roles('seller')
   @Get('/cartwithsellerid/:userId')
   async getSellerCart(@Param('userId', ParseIntPipe) userId: number) {

@@ -14,7 +14,7 @@ import { UploadService } from './userpicture.service';
   imports: [
     JwtModule.register({
       secret: 'mw21ytre34#_4',
-      signOptions: { expiresIn: '1h' },
+      signOptions: { expiresIn: '3h' },
     }),
   ],
   providers: [

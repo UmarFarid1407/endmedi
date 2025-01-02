@@ -47,7 +47,7 @@ export class OrderService {
         line_items: lineItems,
         mode: 'payment',
         success_url: `http://localhost:3000/throwuser?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: 'https://your-domain.com/cancel',
+        cancel_url: 'http://localhost:3000/throwuser',
       });
 
       return {

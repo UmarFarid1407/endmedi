@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { Medicine , CartItemType, SignInData,SignUpData, MedicineData } from '../Dashboards/types/types';
 import { decodeToken } from '../../../sharedimports/auth';
+import { Console } from 'console';
+import CartItem from '../MedCart/CartItem/CartItem';
 const API_URL_SIGN_IN = 'http://localhost:5000/users/login';
 const API_URL_SIGN_UP = 'http://localhost:5000/users/sign-up';
 const API_URL_MEDICINES = 'http://localhost:5000/medicines'; 
@@ -122,7 +124,9 @@ export const  triggerWebhook = async (sessionId: string) => {
 
 
 export const submitOrder = async (orderData: { cartItems: CartItemType[], totalAmount: number, userID: number }) => {
+  console.log(orderData);
   try {
+   
     const shouldDecode=false;
 const getdecodedToken= decodeToken( shouldDecode);
     const response = await axios.post(`${API_URL_ORDER}/add`, orderData,
@@ -439,7 +443,22 @@ const getdecodedToken= decodeToken( shouldDecode);
   }
 };
 
-
+export const getCartByUserIDForUserCart = async (userId: number) => {
+  try {
+    const shouldDecode=false;
+const getdecodedToken= decodeToken( shouldDecode);
+    const response = await axios.get(`${API_URL_ORDER}/cartwithuseridforuser/${userId}`,{
+      headers: {
+        Authorization: `Bearer ${getdecodedToken}`, 
+      },
+    });
+    console.log('from api ',response);
+    return response.data;
+  } catch (error: any) {
+    console.error('Error during fetching cart by User ID:', error);
+    throw new Error(error.response?.data?.message || 'Failed to fetch cart.');
+  }
+};
 
 
 // for user not sign in 
