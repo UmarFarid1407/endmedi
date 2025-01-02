@@ -1,3 +1,5 @@
+// src/user/user.module.ts
+
 import { Module } from '@nestjs/common';
 import { UserService } from './user.register.service';
 import { UserController } from './user.controller';
@@ -11,8 +13,8 @@ import { UploadService } from './userpicture.service';
 @Module({
   imports: [
     JwtModule.register({
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: process.env.JWT_EXPIRATION },
+      secret: 'mw21ytre34#_4',
+      signOptions: { expiresIn: '1h' },
     }),
   ],
   providers: [

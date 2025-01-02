@@ -12,8 +12,8 @@ import { JwtStrategy } from '../guards/jwt.strategy';
 @Module({
   imports: [
     JwtModule.register({
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: process.env.JWT_EXPIRATION },
+      secret: 'mw21ytre34#_4',
+      signOptions: { expiresIn: '1h' },
     }),
   ],
   controllers: [CartController, WebhookController],
