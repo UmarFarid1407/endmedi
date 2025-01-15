@@ -181,8 +181,9 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
     <AppTheme {...props}>
       <CssBaseline enableColorScheme />
       <ColorModeSelect sx={{ position: "fixed", top: "1rem", right: "1rem" }} />
+     <Box>
       <SignUpContainer direction="column" justifyContent="space-between">
-        <Card variant="outlined">
+        <Card variant="outlined" sx={{  overflowY: 'auto' }} >
           <Typography
             component="h1"
             variant="h4"
@@ -335,6 +336,7 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
           </Box>
         </Card>
       </SignUpContainer>
+     </Box>
     </AppTheme>
   );
 }

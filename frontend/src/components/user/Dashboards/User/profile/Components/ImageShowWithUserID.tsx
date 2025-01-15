@@ -58,6 +58,7 @@ const FileUploadEdit = () => {
 
   const fetchImagePreview = async (id: number) => {
     try {
+    if(id !== undefined ){
       const response = await axios.get(`http://localhost:5000/upload/${id}`, {
         responseType: "blob",
       });
@@ -66,6 +67,7 @@ const FileUploadEdit = () => {
         ...prev,
         [id]: imageURL,
       }));
+    }
     } catch (error) {
       console.error("Error fetching image:", error);
     }

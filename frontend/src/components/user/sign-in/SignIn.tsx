@@ -180,7 +180,7 @@ if (getdecodedToken && typeof getdecodedToken === "object") {
         sx={{ position: "fixed", top: "1.7rem", right: "1rem" }}
       />
       <SignInContainer direction="column" justifyContent="space-between">
-        <Card variant="outlined">
+        <Card variant="outlined" sx={{  overflowY: 'auto' }} >
           <Typography
             component="h1"
             variant="h4"
@@ -279,7 +279,7 @@ if (getdecodedToken && typeof getdecodedToken === "object") {
                       onClick={togglePasswordVisibility}
                       edge="end"
                     >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                      {showPassword ?  <Visibility />: <VisibilityOff /> }
                     </IconButton>
                   </InputAdornment>
                 }
